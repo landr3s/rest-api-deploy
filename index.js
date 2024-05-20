@@ -37,6 +37,12 @@ app.disable("x-powered-by") // deshabilitar el header X-Powered-By: Express
 // CORS PRE-Flight
 // OPTIONS
 
+app.get("/", (req, res) => {
+  res.send(
+    "Welcome to the Movies API! Visit /movies to see the list of movies."
+  )
+})
+
 // Todos los recursos que sean MOVIES se identifica con /movies
 app.get("/movies", (req, res) => {
   const { genre } = req.query
@@ -85,7 +91,7 @@ app.delete("/movies/:id", (req, res) => {
     return res.status(404).json({ message: "Movie not found" })
   }
 
-  movies.splice(movieIndex, 1) 
+  movies.splice(movieIndex, 1)
 
   return res.json({ message: "Movie deleted" })
 })
@@ -102,7 +108,7 @@ app.patch("/movies/:id", (req, res) => {
 
   if (movieIndex === -1) {
     return res.status(404).json({ message: "Movie not found" })
-  }  
+  }
 
   const updateMovie = {
     ...movies[movieIndex],
